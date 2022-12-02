@@ -4,18 +4,7 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-   
-  <context-param>
-  <param-name>cname</param-name>
-  <param-value>Google</param-value>
-  </context-param>
-  
   <welcome-file-list>
-  <welcome-file>sample.html</welcome-file>
   <welcome-file>login.html</welcome-file>
-  <welcome-file>signup.html</welcome-file>
   </welcome-file-list>
-  
-
-  
 </web-app>

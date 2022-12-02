@@ -2,46 +2,31 @@ package controller;
 
 import java.io.IOException;
 
-import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import dao.UserDao;
-import dto.User;
+import dao.Dao;
+import dto.Employee;
 
 @WebServlet("/signup")
-public class Signup extends GenericServlet
-{
+public class Signup extends HttpServlet {
 	@Override
-	public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
-		String name=req.getParameter("name");
-		String email=req.getParameter("email");
-		
-		String cname=getServletContext().getInitParameter("cname");
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		res.getWriter().print("<h1>"+cname+"</h1>");
-		
-		long mobile=Long.parseLong(req.getParameter("mobile"));
-		String password=req.getParameter("password");
-		String gender=req.getParameter("gender");
-		String dob=req.getParameter("dob");
-		
-		
-		User user=new User();
-		user.setName(name);
-		user.setEmail(email);
-		user.setMobile(mobile);
-		user.setPassword(password);
-		user.setDob(dob);
-		user.setGender(gender);
-		
-		UserDao dao=new UserDao();
-		dao.signup(user);
-		
-		res.getWriter().print("<h1>Account created successfully</h1>");
-		
+		Employee employee = new Employee();
+		employee.setName(req.getParameter("name"));
+		employee.setEmail(req.getParameter("email"));
+		employee.setPassword(req.getParameter("password"));
+		employee.setMobile(Long.parseLong(req.getParameter("mobile")));
+
+		Dao dao = new Dao();
+		dao.saveEmployee(employee);
+
+		resp.getWriter().print("<h1>Account Created Successfully</h1>");
+
+		req.getRequestDispatcher("login.html").include(req, resp);
 	}
-
 }
